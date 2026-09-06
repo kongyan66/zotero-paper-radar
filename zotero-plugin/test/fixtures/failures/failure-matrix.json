@@ -1,0 +1,5 @@
+{
+  "failureTypes": ["arxiv", "embedding", "llm", "pdf", "database"],
+  "invariants": ["profiles", "saved-items", "feedback", "checkpoints"],
+  "policy": "每类故障都必须保留最后一次已发布状态，并允许用户重试"
+}

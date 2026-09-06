@@ -1,0 +1,147 @@
+.zad-preferences {
+  box-sizing: border-box;
+  color: var(--fill-primary, #202124);
+  max-width: 780px;
+  padding: 20px 24px 28px;
+}
+
+.zad-preferences *,
+.zad-preferences *::before,
+.zad-preferences *::after {
+  box-sizing: border-box;
+}
+
+.zad-pref-header {
+  border-bottom: 1px solid var(--material-border, #d7d9dc);
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+}
+
+.zad-pref-header h1,
+.zad-pref-section h2 {
+  letter-spacing: 0;
+  margin: 0;
+}
+
+.zad-pref-header h1 {
+  font-size: 22px;
+}
+
+.zad-pref-header p,
+.zad-pref-note {
+  color: var(--fill-secondary, #62666d);
+  line-height: 1.45;
+  margin: 7px 0 0;
+}
+
+.zad-pref-section {
+  border-bottom: 1px solid var(--material-border, #d7d9dc);
+  padding: 16px 0 18px;
+}
+
+.zad-pref-section h2 {
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+
+.zad-pref-grid {
+  align-items: center;
+  display: grid;
+  gap: 10px 14px;
+  grid-template-columns: minmax(96px, 145px) minmax(260px, 1fr);
+}
+
+.zad-pref-grid input,
+.zad-pref-grid select {
+  min-height: 30px;
+  min-width: 0;
+  width: 100%;
+}
+
+.zad-model-editor {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: minmax(180px, 0.8fr) minmax(220px, 1.2fr);
+  min-width: 0;
+}
+
+.zad-pref-grid input[type="number"] {
+  max-width: 130px;
+}
+
+.zad-pref-check,
+.zad-switch-label {
+  align-items: center;
+  display: inline-flex;
+  gap: 7px;
+}
+
+.zad-pref-check {
+  margin-top: 12px;
+}
+
+.zad-pref-heading-row {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.zad-pref-inline-actions {
+  margin-top: 8px;
+}
+
+.zad-estimate-list {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+}
+
+.zad-estimate-list div {
+  border-left: 3px solid var(--accent-blue, #3b73c4);
+  padding: 3px 10px;
+}
+
+.zad-estimate-list dt {
+  color: var(--fill-secondary, #62666d);
+  font-size: 12px;
+}
+
+.zad-estimate-list dd {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 3px 0 0;
+}
+
+.zad-pref-status {
+  min-height: 44px;
+  padding: 12px 0 4px;
+}
+
+.zad-pref-status[data-state="error"] {
+  color: var(--accent-red, #b3261e);
+}
+
+.zad-pref-status[data-state="success"] {
+  color: var(--accent-green, #24733f);
+}
+
+.zad-pref-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+  padding-top: 10px;
+}
+
+@media (max-width: 620px) {
+  .zad-pref-grid,
+  .zad-estimate-list,
+  .zad-model-editor {
+    grid-template-columns: 1fr;
+  }
+
+  .zad-pref-grid label {
+    margin-bottom: -6px;
+  }
+}

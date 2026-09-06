@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Zotero Paper Radar">
+  <rect width="48" height="48" rx="8" fill="#1f6f5f"/>
+  <path d="M11 12h26v5H18l19 14v5H11v-5h19L11 17z" fill="#fff"/>
+  <circle cx="36" cy="12" r="5" fill="#e8b44f"/>
+</svg>

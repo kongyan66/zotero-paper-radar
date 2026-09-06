@@ -1,0 +1,33 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+.vscode/
+*.egg-info
+.env
+
+# Virtual environments
+.venv
+test.ipynb
+
+/logs/
+/models/
+test-compose.yml
+.cache/
+
+# Zotero plugin development
+zotero-plugin/node_modules/
+zotero-plugin/node_modules
+zotero-plugin/.scaffold/
+zotero-plugin/.env
+zotero-plugin/.env.local
+zotero-plugin/.env.*.local
+zotero-plugin/build/
+zotero-plugin/logs/
+zotero-plugin/*.log
+zotero-plugin/*.xpi
+
+# Local design previews
+.superpowers/

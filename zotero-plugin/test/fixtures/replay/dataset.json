@@ -1,0 +1,114 @@
+{
+  "papers": [
+    {
+      "paperID": "p1",
+      "arxivID": "2601.00001",
+      "publishedAt": "2026-01-02T00:00:00.000Z",
+      "profileIDs": ["document-ai"],
+      "vector": [1, 0],
+      "features": {
+        "recentSimilarity": 0.2,
+        "longTermSimilarity": 0.3,
+        "representativeSimilarity": 0.9,
+        "keywordMatch": 1,
+        "manualPriority": 0.5,
+        "negativeSimilarity": 0
+      }
+    },
+    {
+      "paperID": "p2",
+      "arxivID": "2602.00001",
+      "publishedAt": "2026-02-02T00:00:00.000Z",
+      "profileIDs": ["multimodal"],
+      "vector": [0.8, 0.2],
+      "features": {
+        "recentSimilarity": 0.4,
+        "longTermSimilarity": 0.3,
+        "representativeSimilarity": 0.8,
+        "keywordMatch": 0.5,
+        "manualPriority": 0.5,
+        "negativeSimilarity": 0
+      }
+    },
+    {
+      "paperID": "p3",
+      "arxivID": "2603.00001",
+      "publishedAt": "2026-03-02T00:00:00.000Z",
+      "profileIDs": ["3d-vision"],
+      "vector": [0, 1],
+      "features": {
+        "recentSimilarity": 0.8,
+        "longTermSimilarity": 0.6,
+        "representativeSimilarity": 0.2,
+        "keywordMatch": 0.2,
+        "manualPriority": 0.2,
+        "negativeSimilarity": 0.1
+      }
+    },
+    {
+      "paperID": "p4",
+      "arxivID": "2604.00001",
+      "publishedAt": "2026-04-02T00:00:00.000Z",
+      "profileIDs": ["document-ai"],
+      "vector": [1, 0],
+      "features": {
+        "recentSimilarity": 0.3,
+        "longTermSimilarity": 0.4,
+        "representativeSimilarity": 0.8,
+        "keywordMatch": 1,
+        "manualPriority": 0.5,
+        "negativeSimilarity": 0
+      }
+    },
+    {
+      "paperID": "p5",
+      "arxivID": "2605.00001",
+      "publishedAt": "2026-05-02T00:00:00.000Z",
+      "profileIDs": ["multimodal"],
+      "vector": [0.7, 0.3],
+      "features": {
+        "recentSimilarity": 0.5,
+        "longTermSimilarity": 0.5,
+        "representativeSimilarity": 0.7,
+        "keywordMatch": 0.5,
+        "manualPriority": 0.5,
+        "negativeSimilarity": 0
+      }
+    }
+  ],
+  "feedback": [
+    {
+      "arxivID": "2601.00001v1",
+      "action": "saved",
+      "occurredAt": "2026-01-03T00:00:00.000Z"
+    },
+    {
+      "paperID": "p2",
+      "action": "saved",
+      "occurredAt": "2026-02-03T00:00:00.000Z"
+    },
+    {
+      "paperID": "p3",
+      "action": "rejected-topic",
+      "occurredAt": "2026-03-03T00:00:00.000Z"
+    },
+    {
+      "paperID": "p4",
+      "action": "saved",
+      "occurredAt": "2026-04-03T00:00:00.000Z"
+    },
+    {
+      "paperID": "p5",
+      "action": "saved",
+      "occurredAt": "2026-05-03T00:00:00.000Z"
+    }
+  ],
+  "cutoffs": [
+    "2026-01-01",
+    "2026-02-01",
+    "2026-03-01",
+    "2026-04-01",
+    "2026-05-01"
+  ],
+  "candidateWindowDays": 14
+}

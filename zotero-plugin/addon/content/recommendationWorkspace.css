@@ -1,0 +1,1097 @@
+:root,
+.zad-workspace {
+  --zad-canvas: #f1f4f3;
+  --zad-surface: #fcfdfc;
+  --zad-surface-muted: #e9efed;
+  --zad-border: #d2ddda;
+  --zad-text: #20302d;
+  --zad-text-muted: #687672;
+  --zad-accent: #267768;
+  --zad-accent-strong: #175548;
+  --zad-warning: #9a6a1b;
+  --zad-danger: #b64848;
+  --zad-radius: 6px;
+  --zad-shadow: 0 10px 24px rgb(32 57 52 / 15%);
+}
+
+.zad-workspace,
+.zad-workspace * {
+  box-sizing: border-box;
+  letter-spacing: 0;
+}
+
+.zad-workspace {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: var(--zad-text);
+  background: var(--zad-canvas);
+  font-family:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  font-variant-numeric: tabular-nums;
+}
+
+.zad-workspace h1,
+.zad-workspace h2,
+.zad-workspace h3,
+.zad-workspace p {
+  margin: 0;
+}
+
+.zad-workspace h1,
+.zad-workspace h2 {
+  font-weight: 650;
+}
+
+.zad-workspace h1 {
+  font-size: 20px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.zad-workspace h2 {
+  font-size: 15px;
+  line-height: 1.25;
+}
+
+.zad-workspace button,
+.zad-workspace input,
+.zad-workspace select {
+  font: inherit;
+}
+
+.zad-workspace button,
+.zad-workspace input,
+.zad-workspace select,
+.zad-workspace a {
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    color 160ms ease,
+    transform 100ms ease;
+}
+
+.zad-workspace button:focus-visible,
+.zad-workspace input:focus-visible,
+.zad-workspace select:focus-visible,
+.zad-workspace a:focus-visible,
+.zad-workspace summary:focus-visible {
+  outline: 2px solid var(--zad-accent);
+  outline-offset: 2px;
+}
+
+.zad-workspace button:active,
+.zad-workspace a:active {
+  transform: translateY(1px);
+}
+
+.zad-workspace-toolbar {
+  min-height: 68px;
+  flex: 0 0 auto;
+  position: relative;
+  z-index: 5;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid var(--zad-border);
+  background: var(--zad-surface);
+}
+
+.zad-workspace-identity {
+  min-width: 0;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+
+.zad-setup-state,
+.zad-cache-summary,
+.zad-category-summary,
+.zad-section-header > span {
+  color: var(--zad-text-muted);
+  font-size: 12px;
+}
+
+.zad-setup-state {
+  padding-left: 8px;
+  border-left: 3px solid var(--zad-warning);
+}
+
+.zad-setup-state[data-state="ready"],
+.zad-setup-state[data-state="working"] {
+  color: var(--zad-accent-strong);
+  border-left-color: var(--zad-accent);
+}
+
+.zad-setup-state[data-state="error"] {
+  color: var(--zad-danger);
+  border-left-color: var(--zad-danger);
+}
+
+.zad-cache-summary {
+  color: var(--zad-text-muted);
+}
+
+.zad-workspace-controls {
+  min-width: 0;
+  flex: 0 1 auto;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.zad-field {
+  min-width: 0;
+  display: grid;
+  grid-template-rows: 14px 32px;
+  align-self: flex-end;
+  gap: 3px;
+  color: var(--zad-text-muted);
+  font-size: 11px;
+}
+
+.zad-field > span:first-child {
+  line-height: 14px;
+}
+
+/* Zotero's native controls have different heights and platform margins. */
+.zad-workspace .zad-workspace-controls > .zad-field {
+  margin: 0;
+  padding: 0;
+  height: 49px;
+}
+
+.zad-workspace .zad-workspace-controls > .zad-field > span:first-child {
+  margin: 0;
+  padding: 0;
+  height: 14px;
+}
+
+.zad-workspace .zad-workspace-controls > .zad-field > button,
+.zad-workspace .zad-workspace-controls > .zad-field > select,
+.zad-workspace .zad-workspace-controls > .zad-field > input,
+.zad-workspace .zad-workspace-controls > .zad-primary-command {
+  box-sizing: border-box;
+  height: 32px;
+  min-height: 32px;
+  max-height: 32px;
+  margin: 0;
+  padding: 0 10px;
+  align-self: end;
+  font-size: 13px;
+}
+
+.zad-workspace .zad-workspace-controls > .zad-field > button,
+.zad-workspace .zad-workspace-controls > .zad-primary-command {
+  appearance: none;
+}
+
+.zad-field select,
+.zad-field input,
+.zad-profile-filter-button,
+.zad-category-filter-button,
+.zad-primary-command,
+.zad-segmented-control button {
+  height: 32px;
+  min-width: 0;
+  border: 1px solid var(--zad-border);
+  border-radius: var(--zad-radius);
+  color: var(--zad-text);
+  background: var(--zad-surface);
+}
+
+.zad-field select:hover,
+.zad-field input:hover,
+.zad-profile-filter-button:hover,
+.zad-category-filter-button:hover {
+  border-color: var(--zad-accent);
+}
+
+.zad-field select {
+  width: 130px;
+}
+
+.zad-history-field select {
+  width: 180px;
+}
+
+.zad-field select[multiple] {
+  height: 32px;
+  min-height: 32px;
+}
+
+.zad-profile-filter,
+.zad-category-filter {
+  position: relative;
+}
+
+.zad-profile-filter-button,
+.zad-category-filter-button {
+  width: 168px;
+  padding: 0 10px;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.zad-category-filter-button {
+  width: 142px;
+}
+
+.zad-profile-filter-button[aria-expanded="true"],
+.zad-category-filter-button[aria-expanded="true"] {
+  border-color: var(--zad-accent);
+  box-shadow: 0 0 0 2px rgb(38 119 104 / 16%);
+}
+
+.zad-workspace > .zad-profile-filter-menu,
+.zad-workspace > .zad-category-filter-menu {
+  position: fixed;
+  z-index: 1000;
+  max-height: 260px;
+  padding: 5px;
+  overflow: auto;
+  border: 1px solid var(--zad-border, #d2ddda);
+  border-radius: var(--zad-radius, 6px);
+  color: var(--zad-text, #20302d);
+  background: var(--zad-surface, #fcfdfc);
+  opacity: 1;
+  box-shadow: var(--zad-shadow, 0 10px 24px rgb(32 57 52 / 15%));
+}
+
+.zad-workspace > .zad-profile-filter-menu[hidden],
+.zad-workspace > .zad-category-filter-menu[hidden] {
+  display: none !important;
+}
+
+.zad-profile-filter-option {
+  min-height: 32px;
+  padding: 5px 7px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--zad-text);
+  cursor: pointer;
+}
+
+.zad-profile-filter-option:hover {
+  background: var(--zad-surface-muted);
+}
+
+.zad-profile-filter-option input {
+  flex: 0 0 auto;
+  margin: 0;
+  accent-color: var(--zad-accent);
+}
+
+.zad-profile-filter-option span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.zad-number-field input {
+  width: 64px;
+  padding: 0 8px;
+}
+
+.zad-primary-command {
+  align-self: flex-end;
+  min-width: 102px;
+  padding: 0 13px;
+  color: #ffffff;
+  border-color: var(--zad-accent);
+  background: var(--zad-accent);
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.zad-primary-command:hover {
+  border-color: var(--zad-accent-strong);
+  background: var(--zad-accent-strong);
+}
+
+.zad-primary-command:disabled {
+  color: var(--zad-text-muted);
+  border-color: var(--zad-border);
+  background: var(--zad-surface-muted);
+  cursor: default;
+}
+
+.zad-primary-command:disabled:active {
+  transform: none;
+}
+
+.zad-category-summary {
+  height: 32px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  border-left: 1px solid var(--zad-border);
+  white-space: nowrap;
+}
+
+.zad-workspace-content {
+  min-height: 0;
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    6px
+    minmax(260px, var(--zad-task-center-width, 320px));
+  grid-template-areas:
+    "profile profile profile"
+    "recommendations resize tasks"
+    "diagnostics diagnostics diagnostics";
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  overflow: hidden;
+}
+
+.zad-profile-host {
+  min-width: 0;
+  max-height: 236px;
+  padding: 0 16px;
+  overflow: auto;
+  grid-area: profile;
+  background: var(--zad-canvas);
+}
+
+.zad-recommendations,
+.zad-task-center {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--zad-surface);
+}
+
+.zad-recommendations {
+  grid-area: recommendations;
+}
+
+.zad-task-center {
+  grid-area: tasks;
+  border-left: 1px solid var(--zad-border);
+  background: var(--zad-surface-muted);
+}
+
+.zad-task-resize-handle {
+  grid-area: resize;
+  width: 6px;
+  min-height: 0;
+  border: 0;
+  border-left: 1px solid var(--zad-border);
+  border-right: 1px solid transparent;
+  background: var(--zad-canvas);
+  cursor: col-resize;
+}
+
+.zad-task-resize-handle:hover,
+.zad-task-resize-handle:focus-visible,
+.zad-workspace-content[data-resizing="true"] .zad-task-resize-handle {
+  border-left-color: var(--zad-accent);
+  border-right-color: var(--zad-accent);
+  background: var(--zad-surface-muted);
+}
+
+.zad-workspace-content[data-task-collapsed="true"] {
+  grid-template-columns: minmax(0, 1fr) 0 minmax(28px, 28px);
+}
+
+.zad-workspace-content[data-task-collapsed="true"] .zad-task-resize-handle {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.zad-task-center[data-collapsed="true"] {
+  min-width: 28px;
+  border-left: 1px solid var(--zad-border);
+}
+
+.zad-task-center[data-collapsed="true"] > :not(.zad-task-rail) {
+  display: none !important;
+}
+
+.zad-task-center > [hidden] {
+  display: none !important;
+}
+
+.zad-task-rail {
+  width: 28px;
+  min-height: 0;
+  flex: 1 1 auto;
+  display: none;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 0;
+  background: var(--zad-surface-muted);
+}
+
+.zad-task-center[data-collapsed="true"] .zad-task-rail {
+  display: flex;
+}
+
+.zad-task-rail-marker {
+  width: 4px;
+  height: 24px;
+  border-radius: 2px;
+  background: var(--zad-border);
+}
+
+.zad-task-rail-marker[data-status="queued"],
+.zad-task-rail-marker[data-status="running"],
+.zad-task-rail-marker[data-status="interrupted"],
+.zad-task-rail-marker[data-status="completed"] {
+  background: var(--zad-accent);
+}
+
+.zad-task-rail-marker[data-status="failed"] {
+  background: var(--zad-danger);
+}
+
+.zad-task-rail-expand {
+  width: 24px;
+  min-height: 26px;
+  padding: 0;
+  border: 1px solid var(--zad-border);
+  border-radius: var(--zad-radius);
+  color: var(--zad-text);
+  background: var(--zad-surface);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.zad-task-rail-expand:hover {
+  border-color: var(--zad-accent);
+  background: var(--zad-surface-muted);
+}
+
+.zad-diagnostics-host {
+  min-width: 0;
+  grid-area: diagnostics;
+  border-top: 1px solid var(--zad-border);
+  background: var(--zad-surface-muted);
+}
+
+.zad-diagnostics {
+  padding: 9px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.zad-diagnostics h2,
+.zad-diagnostics p {
+  margin: 0;
+}
+
+.zad-diagnostics p {
+  color: var(--zad-text-muted);
+  font-size: 12px;
+}
+
+.zad-section-header {
+  min-height: 48px;
+  flex: 0 0 auto;
+  padding: 9px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border-bottom: 1px solid var(--zad-border);
+  background: var(--zad-surface);
+}
+
+.zad-section-header > span {
+  margin-left: auto;
+}
+
+.zad-section-meta {
+  min-width: 0;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  color: var(--zad-text-muted);
+  font-size: 12px;
+  text-align: right;
+}
+
+.zad-section-header > button {
+  min-width: 76px;
+  height: 30px;
+  padding: 0 9px;
+  border: 1px solid var(--zad-border);
+  border-radius: var(--zad-radius);
+  color: var(--zad-text);
+  background: var(--zad-surface);
+  cursor: pointer;
+}
+
+.zad-section-header > button:hover {
+  border-color: var(--zad-accent);
+  background: var(--zad-surface-muted);
+}
+
+.zad-section-header > button:disabled {
+  color: var(--zad-text-muted);
+  background: var(--zad-surface-muted);
+  cursor: default;
+}
+
+.zad-task-center .zad-section-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "title actions"
+    "filters filters";
+  align-items: center;
+}
+
+.zad-task-center .zad-section-header h2 {
+  min-width: 0;
+  grid-area: title;
+}
+
+.zad-task-center .zad-section-header .zad-segmented-control {
+  order: initial;
+  width: 100%;
+  flex-basis: auto;
+  grid-area: filters;
+}
+
+.zad-task-header-actions {
+  grid-area: actions;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+}
+
+.zad-task-header-actions button {
+  min-width: 52px;
+  height: 30px;
+  padding: 0 8px;
+  border: 1px solid var(--zad-border);
+  border-radius: var(--zad-radius);
+  color: var(--zad-text);
+  background: var(--zad-surface);
+  cursor: pointer;
+}
+
+.zad-task-header-actions button:hover {
+  border-color: var(--zad-accent);
+  background: var(--zad-surface-muted);
+}
+
+.zad-segmented-control {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(56px, 1fr));
+  flex: 0 1 auto;
+}
+
+.zad-segmented-control button {
+  padding: 0 8px;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.zad-segmented-control button:first-child {
+  border-radius: var(--zad-radius) 0 0 var(--zad-radius);
+}
+
+.zad-segmented-control button:last-child {
+  border-radius: 0 var(--zad-radius) var(--zad-radius) 0;
+}
+
+.zad-segmented-control button + button {
+  margin-left: -1px;
+}
+
+.zad-segmented-control button:hover {
+  border-color: var(--zad-accent);
+  background: var(--zad-surface-muted);
+}
+
+.zad-segmented-control button[aria-pressed="true"] {
+  color: #ffffff;
+  border-color: var(--zad-accent);
+  background: var(--zad-accent);
+}
+
+.zad-run-progress {
+  min-height: 74px;
+  flex: 0 0 auto;
+  padding: 10px 14px;
+  display: grid;
+  gap: 8px;
+  border-bottom: 1px solid var(--zad-border);
+  background: var(--zad-surface);
+}
+
+.zad-run-progress > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--zad-text-muted);
+  font-size: 12px;
+}
+
+.zad-run-progress > div strong {
+  color: var(--zad-text);
+  font-size: 13px;
+}
+
+.zad-run-progress progress,
+.zad-task-row progress {
+  width: 100%;
+  height: 6px;
+  accent-color: var(--zad-accent);
+}
+
+.zad-task-row progress {
+  height: 4px;
+}
+
+.zad-task-list {
+  min-height: 180px;
+  flex: 1 1 auto;
+  overflow: auto;
+}
+
+.zad-task-row {
+  padding: 8px 12px;
+  display: grid;
+  gap: 4px;
+  border-bottom: 1px solid var(--zad-border);
+  background: var(--zad-surface);
+}
+
+.zad-task-row > div:first-child,
+.zad-task-detail {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.zad-task-row > div:first-child strong,
+.zad-task-detail {
+  overflow-wrap: anywhere;
+}
+
+.zad-task-row > div:first-child strong {
+  font-size: 13px;
+}
+
+.zad-task-execution,
+.zad-task-status,
+.zad-task-stage,
+.zad-task-detail {
+  color: var(--zad-text-muted);
+  font-size: 10.5px;
+}
+
+.zad-task-execution {
+  line-height: 1.35;
+}
+
+.zad-task-metrics {
+  min-width: 0;
+  display: grid;
+  gap: 1px;
+}
+
+.zad-task-metric-line {
+  min-width: 0;
+  color: var(--zad-text);
+  font-size: 10.5px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.zad-task-metric-line[data-role="embedding-flow"] {
+  color: var(--zad-text-muted);
+}
+
+.zad-task-row[data-task-status="running"] .zad-task-status,
+.zad-task-row[data-task-status="interrupted"] .zad-task-status,
+.zad-task-row[data-task-status="completed"] .zad-task-status {
+  color: var(--zad-accent-strong);
+}
+
+.zad-task-row[data-task-status="failed"] .zad-task-status {
+  color: var(--zad-danger);
+}
+
+.zad-empty-state {
+  min-height: 180px;
+  padding: 24px;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 4px;
+  color: var(--zad-text-muted);
+  text-align: center;
+}
+
+.zad-empty-state > * {
+  margin: 0;
+}
+
+.zad-recommendation-empty {
+  min-height: 220px;
+  padding: 40px 24px;
+}
+
+.zad-recommendation-empty strong {
+  color: var(--zad-text);
+  font-size: 15px;
+}
+
+.zad-recommendation-empty p {
+  max-width: 42ch;
+  color: var(--zad-text-muted);
+  font-size: 12px;
+}
+
+.zad-recommendation-list {
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow: auto;
+}
+
+.zad-recommendation-card {
+  margin: 0;
+  padding: 14px 16px 16px;
+  display: grid;
+  gap: 7px;
+  border-bottom: 1px solid var(--zad-border);
+  border-left: 3px solid transparent;
+  background: var(--zad-surface);
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease;
+}
+
+.zad-recommendation-card:hover {
+  border-left-color: var(--zad-accent);
+  background: #f7faf8;
+}
+
+.zad-card-heading-row {
+  min-width: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.zad-recommendation-card h3 {
+  min-width: 0;
+  flex: 1 1 auto;
+  font-size: 15px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
+}
+
+.zad-card-score {
+  min-height: 24px;
+  flex: 0 0 auto;
+  padding: 3px 7px;
+  border: 1px solid var(--zad-border);
+  border-radius: 5px;
+  color: var(--zad-accent-strong);
+  background: var(--zad-surface-muted);
+  font-size: 11px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.zad-card-score[data-score-band="high"] {
+  color: #ffffff;
+  border-color: var(--zad-accent);
+  background: var(--zad-accent);
+}
+
+.zad-card-score[data-score-band="low"] {
+  color: var(--zad-text-muted);
+  background: transparent;
+}
+
+.zad-card-metadata,
+.zad-card-match,
+.zad-card-keywords,
+.zad-card-representatives,
+.zad-card-version,
+.zad-card-abstract,
+.zad-score-formula {
+  margin: 0;
+  color: var(--zad-text-muted);
+  font-size: 11.5px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.zad-card-match {
+  color: var(--zad-accent-strong);
+  font-weight: 650;
+}
+
+.zad-card-abstract {
+  min-width: 0;
+  width: 100%;
+  max-width: none;
+  color: var(--zad-text);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.zad-card-summary {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 6px;
+}
+
+.zad-card-summary > strong {
+  color: var(--zad-accent-strong);
+  font-size: 11.5px;
+}
+
+.zad-card-summary-note {
+  max-width: none;
+  color: var(--zad-warning);
+  font-size: 11.5px;
+  line-height: 1.45;
+}
+
+.zad-card-actions,
+.zad-task-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.zad-card-actions {
+  margin-top: 2px;
+}
+
+.zad-task-actions {
+  justify-content: flex-end;
+}
+
+.zad-card-actions button,
+.zad-card-actions a,
+.zad-card-actions select,
+.zad-task-actions button {
+  min-height: 24px;
+  padding: 0 7px;
+  border: 1px solid var(--zad-border);
+  border-radius: var(--zad-radius);
+  color: var(--zad-text);
+  background: var(--zad-surface);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.zad-task-actions button {
+  font-size: 10.5px;
+}
+
+.zad-card-actions button:hover,
+.zad-card-actions a:hover,
+.zad-card-actions select:hover,
+.zad-task-actions button:hover {
+  border-color: var(--zad-accent);
+  background: var(--zad-surface-muted);
+}
+
+.zad-task-actions button[data-action="clear-task"] {
+  color: var(--zad-danger);
+}
+
+.zad-card-actions button:disabled {
+  color: var(--zad-text-muted);
+  cursor: default;
+}
+
+.zad-card-actions button:disabled:active,
+.zad-task-actions button:disabled:active {
+  transform: none;
+}
+
+.zad-reject-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.zad-score-details {
+  border-top: 1px solid var(--zad-border);
+  padding-top: 6px;
+}
+
+.zad-score-details summary {
+  color: var(--zad-accent-strong);
+  cursor: pointer;
+  font-size: 11.5px;
+}
+
+.zad-score-details dl {
+  margin: 8px 0 0;
+  display: grid;
+  gap: 4px;
+}
+
+.zad-score-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--zad-text-muted);
+  font-size: 11px;
+}
+
+.zad-score-row dt,
+.zad-score-row dd {
+  margin: 0;
+}
+
+.zad-toolbar-button {
+  width: 30px;
+  height: 30px;
+  padding: 4px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid transparent;
+  border-radius: var(--zad-radius);
+  background: transparent;
+  cursor: pointer;
+}
+
+.zad-toolbar-button:hover {
+  border-color: var(--zad-border);
+  background: var(--zad-surface-muted);
+}
+
+.zad-toolbar-button img {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 900px) {
+  .zad-workspace {
+    overflow: auto;
+  }
+
+  .zad-workspace-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .zad-workspace-identity,
+  .zad-workspace-controls {
+    width: 100%;
+  }
+
+  .zad-workspace-controls {
+    align-items: flex-end;
+    justify-content: flex-start;
+  }
+
+  .zad-workspace-content {
+    flex: 0 0 auto;
+    grid-template-areas:
+      "profile"
+      "recommendations"
+      "tasks"
+      "diagnostics";
+    grid-template-columns: 1fr;
+    grid-template-rows: auto minmax(380px, 1fr) minmax(300px, auto) auto;
+    overflow: visible;
+  }
+
+  .zad-profile-host {
+    max-height: none;
+  }
+
+  .zad-task-resize-handle {
+    display: none;
+  }
+
+  .zad-workspace-content[data-task-collapsed="true"] {
+    grid-template-columns: 1fr;
+  }
+
+  .zad-task-center {
+    min-height: 300px;
+    border-top: 1px solid var(--zad-border);
+    border-left: 0;
+  }
+
+  .zad-task-center[data-collapsed="true"] {
+    min-height: 48px;
+  }
+
+  .zad-task-rail,
+  .zad-task-center[data-collapsed="true"] .zad-task-rail {
+    width: 100%;
+    min-height: 48px;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 8px 12px;
+  }
+
+  .zad-task-rail-marker {
+    width: 24px;
+    height: 4px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root,
+  .zad-workspace {
+    --zad-canvas: #1f2725;
+    --zad-surface: #293230;
+    --zad-surface-muted: #34403d;
+    --zad-border: #53615d;
+    --zad-text: #f1f5f3;
+    --zad-text-muted: #b5c1bd;
+    --zad-accent: #46a58d;
+    --zad-accent-strong: #76c5ae;
+    --zad-warning: #e0aa42;
+    --zad-danger: #e27b7b;
+    --zad-shadow: 0 10px 24px rgb(0 0 0 / 32%);
+  }
+
+  .zad-recommendation-card:hover {
+    background: #303b38;
+  }
+}

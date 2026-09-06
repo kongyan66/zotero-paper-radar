@@ -1,0 +1,178 @@
+<linkset>
+  <html:link
+    rel="stylesheet"
+    href="chrome://zotero-arxiv-daily/content/settings.css"
+  />
+</linkset>
+<html:div
+  id="zad-preferences"
+  class="zad-preferences"
+  onload="Zotero.ZoteroArxivDaily.hooks.onPrefsEvent('load', { window })"
+>
+  <html:header class="zad-pref-header">
+    <html:h1>Zotero Paper Radar</html:h1>
+    <html:p>模型在用户操作时调用，推荐数据保存在本机。</html:p>
+  </html:header>
+
+  <html:section
+    class="zad-pref-section"
+    aria-labelledby="zad-embedding-heading"
+  >
+    <html:h2 id="zad-embedding-heading">Embedding 模型</html:h2>
+    <html:div class="zad-pref-grid">
+      <html:label for="zad-embedding-provider">提供商</html:label>
+      <html:select id="zad-embedding-provider"></html:select>
+      <html:label for="zad-embedding-base-url">服务地址</html:label>
+      <html:input id="zad-embedding-base-url" type="url" spellcheck="false" />
+      <html:label for="zad-embedding-api-key">API 密钥</html:label>
+      <html:input
+        id="zad-embedding-api-key"
+        type="password"
+        autocomplete="off"
+      />
+      <html:label for="zad-embedding-model">模型 ID / Endpoint ID</html:label>
+      <html:div class="zad-model-editor">
+        <html:select
+          id="zad-embedding-model-preset"
+          aria-label="选择常用 Embedding 模型"
+        ></html:select>
+        <html:input
+          id="zad-embedding-model"
+          type="text"
+          list="zad-embedding-model-suggestions"
+          spellcheck="false"
+        />
+      </html:div>
+      <html:label for="zad-embedding-batch-size">批大小</html:label>
+      <html:input
+        id="zad-embedding-batch-size"
+        type="number"
+        min="1"
+        max="256"
+      />
+    </html:div>
+    <html:datalist id="zad-embedding-model-suggestions"></html:datalist>
+    <html:p id="zad-embedding-provider-help" class="zad-pref-note"></html:p>
+    <html:div class="zad-pref-inline-actions">
+      <html:button id="zad-embedding-reset-provider" type="button"
+        >恢复提供商默认值</html:button
+      >
+    </html:div>
+    <html:a
+      id="zad-embedding-provider-doc"
+      target="_blank"
+      rel="noreferrer"
+      hidden="hidden"
+      >查看提供商文档</html:a
+    >
+    <html:label class="zad-pref-check">
+      <html:input id="zad-allow-local-http" type="checkbox" />
+      <html:span
+        >允许已确认的本机 HTTP 服务（仅 localhost / 127.0.0.1 / ::1）</html:span
+      >
+    </html:label>
+  </html:section>
+
+  <html:section class="zad-pref-section" aria-labelledby="zad-llm-heading">
+    <html:div class="zad-pref-heading-row">
+      <html:h2 id="zad-llm-heading">LLM 中文摘要</html:h2>
+      <html:label class="zad-switch-label">
+        <html:input id="zad-llm-enabled" type="checkbox" />
+        <html:span>启用</html:span>
+      </html:label>
+    </html:div>
+    <html:p id="zad-summary-mode" class="zad-pref-note"></html:p>
+    <html:div class="zad-pref-grid">
+      <html:label for="zad-llm-provider">提供商</html:label>
+      <html:select id="zad-llm-provider"></html:select>
+      <html:label for="zad-llm-base-url">服务地址</html:label>
+      <html:input id="zad-llm-base-url" type="url" spellcheck="false" />
+      <html:label for="zad-llm-api-key">API 密钥</html:label>
+      <html:input id="zad-llm-api-key" type="password" autocomplete="off" />
+      <html:label for="zad-llm-model">模型 ID / Endpoint ID</html:label>
+      <html:div class="zad-model-editor">
+        <html:select
+          id="zad-llm-model-preset"
+          aria-label="选择常用 LLM 模型"
+        ></html:select>
+        <html:input
+          id="zad-llm-model"
+          type="text"
+          list="zad-llm-model-suggestions"
+          spellcheck="false"
+        />
+      </html:div>
+      <html:label for="zad-network-timeout">超时（秒）</html:label>
+      <html:input id="zad-network-timeout" type="number" min="1" max="120" />
+    </html:div>
+    <html:datalist id="zad-llm-model-suggestions"></html:datalist>
+    <html:p id="zad-llm-provider-help" class="zad-pref-note"></html:p>
+    <html:div class="zad-pref-inline-actions">
+      <html:button id="zad-llm-reset-provider" type="button"
+        >恢复提供商默认值</html:button
+      >
+    </html:div>
+    <html:a
+      id="zad-llm-provider-doc"
+      target="_blank"
+      rel="noreferrer"
+      hidden="hidden"
+      >查看提供商文档</html:a
+    >
+  </html:section>
+
+  <html:section class="zad-pref-section" aria-labelledby="zad-arxiv-heading">
+    <html:h2 id="zad-arxiv-heading">arXiv 分类</html:h2>
+    <html:label for="zad-arxiv-categories">分类（逗号分隔）</html:label>
+    <html:input
+      id="zad-arxiv-categories"
+      type="text"
+      value="cs.CV,cs.CL"
+      spellcheck="false"
+    />
+    <html:p class="zad-pref-note"
+      >默认检索计算机视觉和语言模型相关论文。</html:p
+    >
+  </html:section>
+
+  <html:section class="zad-pref-section" aria-labelledby="zad-corpus-heading">
+    <html:h2 id="zad-corpus-heading">首次画像估算</html:h2>
+    <html:dl class="zad-estimate-list">
+      <html:div
+        ><html:dt>合格论文</html:dt
+        ><html:dd
+          ><html:span id="zad-corpus-count">-</html:span> 篇</html:dd
+        ></html:div
+      >
+      <html:div
+        ><html:dt>Embedding 批次</html:dt
+        ><html:dd
+          ><html:span id="zad-batch-estimate">-</html:span> 批</html:dd
+        ></html:div
+      >
+      <html:div
+        ><html:dt>估算文本量</html:dt
+        ><html:dd
+          ><html:span id="zad-token-estimate">-</html:span> tokens</html:dd
+        ></html:div
+      >
+    </html:dl>
+    <html:p class="zad-pref-note"
+      >确认后仅向配置的模型服务发送论文标题与摘要。API 密钥保存在本机 Zotero
+      偏好设置中，不会写入插件日志或诊断导出。</html:p
+    >
+  </html:section>
+
+  <html:div
+    id="zad-settings-status"
+    class="zad-pref-status"
+    role="status"
+  ></html:div>
+  <html:footer class="zad-pref-actions">
+    <html:button id="zad-save-settings" type="button">保存设置</html:button>
+    <html:button id="zad-test-connection" type="button">测试连接</html:button>
+    <html:button id="zad-finish-setup" type="button" class="primary"
+      >确认并创建画像</html:button
+    >
+  </html:footer>
+</html:div>

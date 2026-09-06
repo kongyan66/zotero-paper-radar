@@ -1,0 +1,95 @@
+name: Zotero Paper Radar build
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  verify-and-package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: zotero-plugin/package-lock.json
+      - name: Install plugin dependencies
+        working-directory: zotero-plugin
+        run: npm ci
+      - name: Run plugin checks
+        working-directory: zotero-plugin
+        run: npm run check
+      - name: Run performance gates
+        working-directory: zotero-plugin
+        run: npm run test:performance
+      - name: Build production XPI
+        working-directory: zotero-plugin
+        run: npm run build
+      - name: Verify package contents and update metadata
+        working-directory: zotero-plugin
+        run: |
+          test -f .scaffold/build/zotero-paper-radar.xpi
+          test -f .scaffold/build/update-beta.json
+          if unzip -Z1 .scaffold/build/zotero-paper-radar.xpi | grep -E '(^|/)(\.env|.*\.sqlite|node_modules/|__pycache__/|models/)' ; then
+            echo "Forbidden private or development files found in XPI"
+            exit 1
+          fi
+          if unzip -p .scaffold/build/zotero-paper-radar.xpi 'content/scripts/*.js' | grep -E 'SENDER_PASSWORD|OPENAI_API_KEY|\bsk-[A-Za-z0-9_-]{12,}\b|pyzotero|llama-cpp|smtp\.gmail' ; then
+            echo "Forbidden legacy configuration or credential text found in XPI"
+            exit 1
+          fi
+          node -e "const u=require('./.scaffold/build/update-beta.json'); const a=u.addons['zotero-arxiv-daily@kongyan66']?.updates?.[0]; if (!a || a.applications.zotero.strict_min_version !== '9.0' || a.applications.zotero.strict_max_version !== '9.*') process.exit(1)"
+      - name: Create checksums
+        working-directory: zotero-plugin
+        run: sha256sum .scaffold/build/*.xpi .scaffold/build/update*.json > .scaffold/build/SHA256SUMS.txt
+      - name: Upload XPI artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: zotero-paper-radar-${{ github.sha }}
+          path: |
+            zotero-plugin/.scaffold/build/*.xpi
+            zotero-plugin/.scaffold/build/update*.json
+            zotero-plugin/.scaffold/build/SHA256SUMS.txt
+          if-no-files-found: error
+          retention-days: 14
+      - name: Publish tagged beta release
+        if: startsWith(github.ref, 'refs/tags/v')
+        working-directory: zotero-plugin
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run release
+      - name: Upload release checksum
+        if: startsWith(github.ref, 'refs/tags/v')
+        working-directory: zotero-plugin
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # The release command rebuilds and clears the earlier checksum file.
+          sha256sum .scaffold/build/*.xpi .scaffold/build/update*.json > .scaffold/build/SHA256SUMS.txt
+          gh release upload "${GITHUB_REF_NAME}" .scaffold/build/SHA256SUMS.txt --clobber
+      - name: Repair checksum for an existing release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        working-directory: zotero-plugin
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          tag="v$(node -p 'require("./package.json").version')"
+          releases=$(gh api "repos/${GITHUB_REPOSITORY}/releases" --paginate --jq '.[].tag_name')
+          if ! printf '%s\n' "$releases" | grep -Fxq "$tag"; then
+            echo "No published release for $tag; no checksum to repair"
+            exit 0
+          fi
+          mkdir -p .scaffold/published-checksums
+          gh release download "$tag" --pattern 'zotero-paper-radar.xpi' --dir .scaffold/published-checksums --clobber
+          (cd .scaffold/published-checksums && sha256sum zotero-paper-radar.xpi > SHA256SUMS.txt)
+          gh release upload "$tag" .scaffold/published-checksums/SHA256SUMS.txt --clobber

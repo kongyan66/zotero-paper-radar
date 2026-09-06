@@ -1,0 +1,16 @@
+pref("setupComplete", false);
+pref("recommendationCount", 5);
+pref("embeddingProvider", "openai-compatible");
+pref("embeddingBaseURL", "https://api.openai.com/v1");
+pref("embeddingAPIKey", "");
+pref("embeddingModel", "text-embedding-3-small");
+pref("embeddingDimensions", 0);
+pref("embeddingBatchSize", 32);
+pref("allowInsecureLocalhost", false);
+pref("llmEnabled", false);
+pref("llmProvider", "openai-compatible");
+pref("llmBaseURL", "https://api.openai.com/v1");
+pref("llmAPIKey", "");
+pref("llmModel", "");
+pref("networkTimeoutMs", 30000);
+pref("arxivCategories", "cs.CV,cs.CL");
