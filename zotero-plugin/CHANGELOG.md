@@ -5,6 +5,12 @@ follows Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.1.0-beta.5] - 2026-09-06
+
+### Fixed
+
+- Keep expired recommendation runs that are still referenced by feedback or persisted tasks, preventing refresh startup from failing with a foreign-key error.
+
 ## [0.1.0-beta.4] - 2026-09-06
 
 ### Changed
@@ -60,7 +66,8 @@ follows Semantic Versioning.
 
 - Initial Zotero 9 plugin scaffold.
 
-[Unreleased]: https://github.com/kongyan66/zotero-paper-radar/compare/v0.1.0-beta.4...HEAD
+[Unreleased]: https://github.com/kongyan66/zotero-paper-radar/compare/v0.1.0-beta.5...HEAD
+[0.1.0-beta.5]: https://github.com/kongyan66/zotero-paper-radar/releases/tag/v0.1.0-beta.5
 [0.1.0-beta.4]: https://github.com/kongyan66/zotero-paper-radar/releases/tag/v0.1.0-beta.4
 [0.1.0-beta.3]: https://github.com/kongyan66/zotero-arxiv-daily/releases/tag/v0.1.0-beta.3
 [0.1.0-beta.2]: https://github.com/kongyan66/zotero-arxiv-daily/releases/tag/v0.1.0-beta.2

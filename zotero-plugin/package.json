@@ -1,7 +1,7 @@
 {
   "name": "zotero-paper-radar",
   "type": "module",
-  "version": "0.1.0-beta.4",
+  "version": "0.1.0-beta.5",
   "description": "Explainable paper recommendations for Zotero, with editable interest profiles, AI summaries, and one-click imports.",
   "private": true,
   "keywords": [

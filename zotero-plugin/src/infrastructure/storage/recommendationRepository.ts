@@ -124,7 +124,10 @@ export class RecommendationRepository {
          AND NOT EXISTS (
            SELECT 1 FROM operation_tasks
            WHERE operation_tasks.related_run_id = recommendation_runs.run_id
-             AND operation_tasks.status IN ('queued', 'running', 'interrupted')
+         )
+         AND NOT EXISTS (
+           SELECT 1 FROM feedback_events
+           WHERE feedback_events.run_id = recommendation_runs.run_id
          )`,
       cutoff,
     );

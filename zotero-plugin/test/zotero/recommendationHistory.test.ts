@@ -28,6 +28,8 @@ describe("recommendation history repository", function () {
       "history-today-new",
       "history-yesterday",
       "history-expired",
+      "history-feedback-protected",
+      "history-task-protected",
     ];
     try {
       await connection.queryAsync(
@@ -96,6 +98,55 @@ describe("recommendation history repository", function () {
         profileVersionID,
         [paper("2609.00004")],
       );
+      await createPublishedRun(
+        recommendations,
+        candidates,
+        "history-feedback-protected",
+        "2026-08-27T04:00:00.000Z",
+        generationID,
+        profileVersionID,
+        [paper("2609.00005")],
+      );
+      await createPublishedRun(
+        recommendations,
+        candidates,
+        "history-task-protected",
+        "2026-08-26T04:00:00.000Z",
+        generationID,
+        profileVersionID,
+        [paper("2609.00006")],
+      );
+      await connection.queryAsync(
+        `INSERT INTO feedback_events (
+          event_id, idempotency_key, arxiv_id, event_type, run_id,
+          context_json, created_at
+        ) VALUES (?, ?, ?, ?, ?, '{}', ?)`,
+        [
+          `feedback-${fixtureID}`,
+          `feedback-key-${fixtureID}`,
+          "2609.00005",
+          "saved",
+          "history-feedback-protected",
+          "2026-09-04T05:00:00.000Z",
+        ],
+      );
+      await connection.queryAsync(
+        `INSERT INTO operation_tasks (
+          task_id, task_type, status, stage, completed, total,
+          checkpoint_json, retry_count, related_run_id, created_at, updated_at
+        ) VALUES (?, ?, ?, ?, ?, ?, '{}', 0, ?, ?, ?)`,
+        [
+          `task-${fixtureID}`,
+          "import",
+          "completed",
+          "completed",
+          1,
+          1,
+          "history-task-protected",
+          "2026-09-04T05:00:00.000Z",
+          "2026-09-04T05:00:00.000Z",
+        ],
+      );
 
       const history = await recommendations.listHistoryDays(
         new Date("2026-09-04T12:00:00.000Z"),
@@ -125,7 +176,20 @@ describe("recommendation history repository", function () {
         "history-expired",
       );
       assert.equal(expiredCount, 0, `expired=${String(expiredCount)}`);
+      const protectedCount = await connection.valueQueryAsync(
+        `SELECT COUNT(*) FROM recommendation_runs
+         WHERE run_id IN ('history-feedback-protected', 'history-task-protected')`,
+      );
+      assert.equal(protectedCount, 2, `protected=${String(protectedCount)}`);
     } finally {
+      await connection.queryAsync(
+        "DELETE FROM operation_tasks WHERE task_id = ?",
+        `task-${fixtureID}`,
+      );
+      await connection.queryAsync(
+        "DELETE FROM feedback_events WHERE event_id = ?",
+        `feedback-${fixtureID}`,
+      );
       await connection.queryAsync(
         `DELETE FROM recommendation_candidates WHERE run_id IN (${runIDs
           .map(() => "?")
